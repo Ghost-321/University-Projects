@@ -1,0 +1,39 @@
+Stack Calculator
+In this challenge we are going to build a simple calculator.  Coding a calculator to handle expressions like "(2 + 4) * 8 + 3" would take us more time than we have in a single tutorial.  But if we write the expression like this instead "2 4 + 8 * 3 +" it is fairly easy to compute the value of the expression using a stack.  Huh?
+
+The expression "2 4 + 8 * 3 +" is in postfix notation also known as Reverse Polish Notation, after the Polish mathematician Jan Łukasiewicz who invented it.  Our usual way of writing "(2 + 4) * 8 + 3" is called infix notation because the operators go in between the arguments.  While it looks confusing at first, reverse polish notation has several nice features.  First, an expression in reverse polish notation is unambiguous, unlike an infix expression where parentheses and rules about order of precedence (PEMDAS) are needed in order to guide the evaluation.  Secondly, expressions in postfix notation are much easier to tell a computer how to evaluate.  The graphics language postscript is so named because it uses a postfix syntax which helped it run on devices without a lot of computational power, like a printer.
+
+How To Evaluate a Postfix Expression
+Let's say we have a postfix expression with the arithmetic operators +, -, *, /, where / is integer division which truncates towards 0, e.g. 7/4 == 1.  Let's say that all of these operators take 2 parameters.  For example, if we were to write addition in the usual way we write a function, call it operator+, then it has the signature int operator+(int, int); To extend the example, we think of 2 + 3 + 4 as operator+(operator+(2,3), 4) rather than allowing operator+ to take more than 2 parameters.
+
+We can evaluate a postfix expression using a stack data structure.  We read the expression from left to right.  Whenever we encounter a number, we push it onto the stack.  Whenever we encounter an operator we pop the top two values off of the stack.  We then evaluate the operator using these two values as the arguments (the top value of the stack being the second argument) and push the result back onto the stack.  After we read the whole expression we return the top value of the stack.  That's it!
+
+Where Does Postfix Come From?
+We can see where the postfix expression comes from by looking at the tree describing an expression.  If we go back to the expression "(2 + 4) * 8 + 3", the tree looks like this
+
+
+This tree tells us how to evaluate the expression.  We evaluate the expressions given by the children of a node, and then apply the operator to these values.  The postfix form of an expression is formed by visiting all the nodes of this tree in the fashion of this picture.  
+
+
+That is we start at the top + and then visit *, +, 2, 4, +, *, 8, +, 3.  The postfix expression is formed by writing the name of a node on this tour only after we have visited both of its children.  This gives the sequence 2 4 + 8 * 3 +.  This is the postfix expression corresponding to this tree!
+
+Code Tips
+You are going to implement a function with the signature 
+
+int evalRPN(const std::vector<char>& tokens)
+To keep things simple, the input is a vector of characters like {'2', '4', '+', '8', '*', '3', '+'}, giving an expression with operators +, -, *, / in postfix notation.  All the numbers will be single digit non-negative integers so that they fit in a single character.  The division is integer division, truncating towards zero.  
+
+You can tell if a character c is one of '0', '1', ..., '9' with the std::isdigit(c) function.  A simple way to convert from a number given by a character to its integer value is to do the following.
+
+12345678
+#include <iostream>
+
+int main() {
+    char c = '5';
+    int cVal = static_cast<int>(c - '0');
+    std::cout << cVal + 3 << '\n';
+    return 0;
+}
+The code also works without the static_cast, but I find it nice to be explicit about the conversion.
+
+After this problem you might try the Leet Code version, where the input is a vector of std::string instead of char allowing arbitrary ints in the input.  The algorithm is exactly the same, but parsing the input requires a bit more care.
