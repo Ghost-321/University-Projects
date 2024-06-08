@@ -1,0 +1,16 @@
+Priority Queue
+The standard library has an implementation of a priority queue.  It is defined in the library queue.   The default setting is a max priority queue.  
+
+#include <queue>
+
+// create empty max priority queue of ints
+std::priority_queue<int> queue {};
+The main operations we can do are:
+
+Add an element: queue.push(3)
+
+Look at the top (i.e. max) element: queue.top()
+
+Remove the top element: queue.pop()
+
+In this challenge you will play with std::priority_queue and get some practice using it.  You will also see the syntax to use a std::priority_queue as a minimum priority queue, and how to use it with a user defined type.
