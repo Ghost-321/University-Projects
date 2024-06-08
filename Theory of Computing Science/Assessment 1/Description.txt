@@ -1,0 +1,79 @@
+Specification
+Assessment Item Details
+Due: 11.59pm, 8 September 2023 (Friday)
+
+Format: Program and short Report
+
+Length: <500 Lines of code in the program, 2-3 pages for the report
+
+Submission: 
+
+Code: 
+
+Electronic via Ed. If you do not do the programming in Ed, make sure you upload and click the "mark" button. 
+
+Please download all your code files, zip them, and upload to Canvas at this link. This is to make sure that there is a copy at Canvas for future checks by the university.
+
+Report: Electronic via Canvas at this link. 
+
+Weighting: 30%
+
+Type: Individual
+
+Preamble
+Finite Automata are one of the simplest useful models of computation. Although they are limited in power, many of the simpler tasks that we automate with computers can be thought of as the action of a finite automaton (or more strictly a finite state transducer, as we normally expect output beyond "accept" or "reject"). Event driven systems of all kinds (for example the event loop of a GUI application) are typically expressible as finite automata, and often explicitly are. Many of the sub-components of digital electronics can also be thought of as hardware implementations of finite automata. Even a cursory web search turns up applications in all sorts of interesting places.
+
+Of particular interest for this assignment, the task of lexical analysis (whether it be in the traditional compiler design setting, or for data processing, natural language processing, artificial intelligence, &c.) is typically expressed via a finite automaton/finite state transducer.
+
+To help introduce you to a basic model of computation, its applications and how we might go about translation theory into practice, this assignment focuses on implementing a simple lexical analyser for a basic calculator using a finite automaton based approach.
+
+Your Task
+This assignment consists in two components, a program and a report.
+
+The Program (Weighting: 70%)
+You will implement a [deterministic] finite automaton/transducer that takes in a string representing an arithmetic statement, and produces an output sequence of tokens that represent the numbers and operators. Your program should work like a finite automaton, with an explicit representation of state, and reading one character at a time. You will have to decide when to emit tokens (i.e. add them to the output list). The one specific exception I will allow to the model is the keeping of some sort of buffer to collect the digits of the numbers in (as the task is effectively impossibly otherwise 😆).
+
+Your program should also handle two types of errors -- incorrect representation of a number, and incorrect representation of an expression.
+
+Numbers will be in the following format:
+
+A string of digits possibly followed by a decimal point and a non-empty string of digits. 
+
+If there is a decimal point, the string before the decimal point should consist only of 0.
+
+If the number starts with 0', it is either just 0, or 0.[something] where the [something] is a string of digits.
+
+The following expressions are valid:
+
+A valid number is a valid expression. 
+
+Any valid expression, followed by an operator, followed by a valid number.
+
+The operators and numbers may or may not be separated by white space.
+
+In all cases, the skeleton code has a analyse method which takes a string (of the appropriate type for each language) and returns (or should return) a list of Tokens (again, typed appropriately for each language). The Token type is also given as part of the skeleton, along with suitable error types (as classes in Java and Python, and types in Haskell).
+
+The program will be implemented in Java, Python, C++, Ruby or Haskell, unless specifically negotiated otherwise with a good reason (the subject coordinator reserves final judgement on what constitutes a good reason).
+
+The Report (Weighting: 30%)
+The report is to be a simple report recording how your program utilises the material from the subject. In particular, you may wish to indicate some of the following:
+
+How did you extract a finite automaton from the specification? 
+
+What is the formal specification of your automaton? 
+
+How does your code implement the finite automaton that you designed? 
+
+Did you use any additional techniques to improve the automaton? 
+
+Did you encounter any challenges or limitations, either technical or conceptual, in implementing a theoretical construct in a concrete programming language?
+
+Marking
+The Program
+The marking for the program will be based on automated unit tests, examples of which will be provided. Tests will use JUnit/PyUnit and can be run by clicking the "Mark" button (this also registers a submission). The marks for the program have one significant caveat: if the program does not use an automata based approach (excluding the aforementioned number buffer), it will be deemed to have failed to fulfill the specification, regardless of functionality, and you will receive 0 for the program.
+
+The Report
+The report will be marked over three components: demonstration and understanding of subject material, accurate reportage of the content of the submitted code, clarity and precision of writing.
+
+These will be marked qualitatively according to the following rubric in the table below. Note that the marking criteria are considered to be cumulative; e.g. to achieve a credit, you must first meet the criteria for a pass and so on.
+
