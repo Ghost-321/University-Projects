@@ -1,0 +1,29 @@
+Task 4 - Getting the Computer to Play the Game Instead
+Introduction
+Now we get to the hard (but maybe fun one). In this we pare back the maze structure even further, but solve a simple but important problem - pathfinding. We'll do this one in Python. The goal here is to complete two functions: can_escape and escape_route, both of which take a single parameter, which will be a maze, the format of which is indicated below. To help this, we have a simple class Position already implemented. You can add things to Position if you like, but there's not a lot of point to it.
+
+There is also a main section, in which you can perform your own tests.
+
+Maze Format
+As mentioned, the maze format is even simpler here. It is just a list containing lists of Positions. Each position contains a variable (publically accessible) that indicates whether this is a path in each of the four directions (again "north" is up and (0,0) is in the top left, although there is no visual element here), and also contains a public variable that indicates whether the Position is an exit or not.
+
+Mazes will obey the following rules:
+
+(0, 0) will never be an exit.
+
+If you can go in a direction from one location, then you can go back from where that went (e.g. if you can go "east" from here, you can got "west" from the location that's to the east of here.)
+
+When testing escape_route, there will always be at least one valid path to each exit, and there will be at least one exit (tests for can_escape may include mazes that have no way to exit).
+
+can_escape
+The function can_escape takes a single parameter in format describe above representing the maze, and returns True if there is some path from (0,0) (i.e. maze[0][0]) to any exit, and False otherwise. (0,0) will never be an exit.
+
+escape_route
+The function escape_route also takes a single parameter representing a maze, in the format as described, and returns a sequence of directions ("north", "east", "south", "west") giving a route from (0,0) to some exit. It does not have to be the best route and can double back, but it does have to be a correct sequence that can be successfully followed step by step.
+
+You do not have to worry about mazes with no escape.
+
+Advice and Answers
+Keeping track of where you have been is really handy. The list method pop is also really handy.
+
+can_escape can be solved with less finesse than escape_route - you don't have to worry about dead ends etc, whereas escape_route needs to return a proper route - no teleporting.
