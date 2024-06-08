@@ -1,0 +1,41 @@
+Factorial revisited
+In this challenge we are again going to write a function to compute the factorial of a number.  Recall that by definition 0! = 1 and n! = 1 * 2 * ... * n for a positive integer n.  Another way that we can write the definition of the factorial function is like this:
+
+𝑛
+!
+ 
+=
+{
+1
+if 
+𝑛
+=
+0
+𝑛
+∗
+(
+𝑛
+−
+1
+)
+!
+otherwise
+n! ={ 
+1
+n∗(n−1)!
+​
+  
+if n=0
+otherwise
+​
+ 
+
+In this definition we express the factorial of n in terms of the factorial of a smaller number, n-1.  
+
+This definition naturally gives rise to a way to write the factorial function recursively, which is what we are going to do in this challenge.  A recursive function is a function that calls itself.  
+
+A crucial component of a recursive function is the base case.  We don't want the function to keep calling itself forever.  A base case is a particularly easy case where we can directly return the answer.  In our recursive calls we want the argument to the recursive call to make progress towards the base case so that our function will eventually end.
+
+In the definition above, a natural base case is when n = 0.  In this case we can directly return the value 1.
+
+The definition also suggests that in computing factorial(n) we want to make a recursive call to factorial(n-1).  So we the argument to the recursive call gets smaller and smaller and makes progress towards the base case of 0.  
