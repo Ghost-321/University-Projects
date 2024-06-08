@@ -1,0 +1,12 @@
+Mergesort
+Mergesort
+In this challenge you will implement the divide and conquer sorting algorithm mergesort. We discuss mergesort at length in Lecture 4.4 and 4.5. 
+
+The heart of mergesort is the merge function, which has the signature
+
+template <typename Iter> void merge (VecIter low, VecIter mid, VecIter high);
+In lecture we left out how to implement the merge function so you could try it yourself here.Let us illustrate what the merge function should do with an example. Say we have a 
+
+std::vector<int> vec = {1, 4, 6, 0, 2, 7} . The merge function takes three iterators low, mid, and high into vec as input, with the promise that lo <= mid <= hi. vec should also satisfy the promise that it is sorted on the intervals [lo, mid) and [mid, hi). As usual in C++ we use half-closed intervals here, meaning that the first value is included but not the last. In this example we can take low = vec.begin(), mid = lo + 3, and high = vec.end() and satisfy this promise. merge should modify vec so that it is completely sorted. That is at the end of the function vec == {0,1,2,4,6,7}. merge is typically not implemented as an in-place algorithm: we recommend that you use an additional auxiliary vector in merge to build the sorted vector as you work, and then copy the result back into vec.
+
+With the merge function done, finishing mergesort is relatively easy. We recursively call mergesort to sort the left half of the vector, recursively call mergesort to sort the right half of the vector, and then merge the sorted left and right halves together!
