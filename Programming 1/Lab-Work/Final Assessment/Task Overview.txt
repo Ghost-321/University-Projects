@@ -1,0 +1,23 @@
+The programming assignment consists of four related, but independent tasks. Task 1 is simple class and method implementation and modelling, Task 2 concerns file I/O, Task 3 deals with user input and maintaining state and Task 4 involves implementing some simple algorithms. Thematically these tasks are linked by the idea of navigating a simple maze on a 2D grid.
+
+Although they are loosely linked, they can all be done independently. It is beneficial to attempt them in order however, as some of the ideas are better understood when you're started at the beginning.
+
+The components are weighted (in proportion to the total mark for the assignment) as follows:
+
+Task 1 - 45%
+
+Task 2 - 25%
+
+Task 3 - 15%
+
+Task 4 - 15%
+
+The marks correspond to the difficulty, but not in a linear way - it is expected that if you have kept up with the work and done okay so far, you should have no trouble passing the assignment. Getting full marks however takes more effort.
+
+Note also that the tests in each task have individual marks. These only relate to the internal effort/difficulty weighting and do not add up to anything in particular.
+
+More detail for each task is given in the individual tasks.
+
+You can submit each task as many times as you like (up to the due date).
+
+The standard late penalties apply for late submissions - 10% of the maximum mark taken off your mark, per day, up to 5 days, after which it is marked as 0.
