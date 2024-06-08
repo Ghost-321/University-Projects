@@ -1,0 +1,97 @@
+bonacci Numbers
+The Fibonacci numbers are a sequence of numbers defined by the recurrence relation
+
+𝐹
+(
+0
+)
+=
+0
+,
+ 
+𝐹
+(
+1
+)
+ 
+=
+ 
+1
+,
+ 
+𝐹
+(
+𝑛
+)
+ 
+=
+ 
+𝐹
+(
+𝑛
+−
+1
+)
++
+𝐹
+(
+𝑛
+−
+2
+)
+ for all 
+𝑛
+>
+1
+F(0)=0, F(1) = 1, F(n) = F(n−1)+F(n−2) for all n>1
+
+ Let's work out a few examples: 
+
+F(2) = F(1) + F(0) = 1
+
+F(3) = F(2) + F(1) = 2
+
+F(4) = F(3) + F(2) = 3
+
+F(5) = F(4) + F(3) = 5
+
+Fibonacci numbers can be found in nature, for example in the number of seeds in the spirals of sunflowers or at UTS---the number of ways you can go up n stairs taking 1 or 2 steps at a time is F(n+1).
+
+In this challenge we are going to write a program to compute F(n) in two different ways.  The first method is iterative.  We build up to computing F(n) by sequentially computing F(i) for i = 0 up to n.  
+
+The second way is recursively.  The recursive program follows the mathematical definition we gave above.  The base case is when n is 0 or 1.  In this case we can explicitly return the answer.  Otherwise to compute F(n) we first make recursive calls to compute F(n-1) and F(n-2) and then sum the results.
+
+We provide two function signatures to get you started
+
+int64_t recursiveFibonacci(int n);
+int64_t iterativeFibonacci(int n);
+Fibonacci numbers get big pretty quickly.  To hold larger numbers the return type is a 64 bit integer int64_t.
+
+Stopwatch Class
+We want a way to be able to compare the running times of these two methods of computing Fibonacci numbers.  To help with this we include the file stopwatch.hpp with a simple Stopwatch class.  To keep things simple we have made this a header-only library---the full definitions of all member functions are directly in the header file.  
+
+The basic usage of the stopwatch class is like this:
+
+// Calling the constructor starts the time running
+Stopwatch clock {};
+// Call the function you want to time
+int64_t result = recursiveFibonacci(20);
+// stop the timer and return elapsed time since it started.
+// this returns elapsed time in milliseconds as a 64 bit unsigned int.
+uint64_t timeElapsed = clock.elapsed();
+
+You can also manually start the stopwatch with the start() member function.  Finally you can change the units of time by passing a template argument to the elapsed() function.  Here is an illustration of these features.
+
+// Constructor starts the time running
+Stopwatch clock {};
+int64_t result = recursiveFibonacci(20);
+// get elapsed time in microseconds instead
+uint64_t timeElapsed = clock.elapsed<Stopwatch::microseconds>();
+// now time something else
+clock.start();
+int64_t result2 = iterativeFibonacci(25);
+// get elapsed time in nanoseconds
+uint64_t timeElapsed = clock.elapsed<Stopwatch::nanoseconds>();
+The available options for the template argument to elapsed are Stopwatch::seconds, Stopwatch::milliseconds, Stopwatch::microseconds, and Stopwatch::nanoseconds.
+
+Benchmarking is quite a tricky subject and it can be hard to know what exactly you are measuring with all the optimisations compilers do.  It is good to run many trials and look at the average time per run.  Even with this crude stopwatch tool you should be able to see the difference between the basic recursive and iterative solutions.
