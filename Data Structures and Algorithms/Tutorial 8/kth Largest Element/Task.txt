@@ -1,0 +1,54 @@
+kth Largest Element
+In this challenge we look at an application of a priority queue to finding the 
+𝑘
+𝑡
+ℎ
+k 
+th
+  largest element of a vector.  Specifically, you will implement a function
+
+int kthLargest(const std::vector<int>& vec, int k);
+Let's look at some examples:
+
+If vec = {6, 3, 2, 9, 1} and k=1 then we want to output the largest element in the vector.  We should return 9.
+
+If vec = {6, 3, 2, 9, 1} and k = 5 then we want to output the 5th largest element in the vector, which is the minimum element since there are 5 elements in total.  In this case we should output 1.
+
+If vec = {8, -9, 6, 2, 9, 1, 6} and k = 4 then we should output 6.
+
+One way to solve this problem would be to sort the vector in descending order std::sort(vec.begin(), vec.end(), std::greater<int> {}) and output vec[k-1].  This solution takes time 
+Θ
+(
+𝑛
+log
+⁡
+𝑛
+)
+Θ(nlogn) independently of the value of 
+𝑘
+k.
+
+If 
+𝑘
+=
+1
+k=1, i.e. we want to compute the maximum element, we know that we can do this in time 
+Θ
+(
+𝑛
+)
+Θ(n), so the sorting solution is sub-optimal.  We can do better for small values of 
+𝑘
+k using a priority queue!  See if you can figure out how to apply a priority queue to this problem to come up with a solution that works in time 
+𝑂
+(
+𝑛
+log
+⁡
+(
+𝑘
++
+1
+)
+)
+O(nlog(k+1)).
