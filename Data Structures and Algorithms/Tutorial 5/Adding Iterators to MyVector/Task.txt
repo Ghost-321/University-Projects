@@ -1,0 +1,47 @@
+Adding Iterators to MyVector
+In this challenge we return to our MyVector class again.  We have already made this a templated class so that it can contain elements of an arbitrary type T, and implemented member functions for all the basic operations.  This time we add support for iterators.  
+
+To do this, we will add a class inside of MyVector called Iterator.  We talked about iterators being an abstraction of pointers.  In the case of MyVector the Iterator class is a simple wrapper around a pointer, much like our MyInteger class was a wrapper around an int.
+
+ template <typename T>
+ class MyVector {
+   // all the stuff we have already written
+   ...
+   class Iterator {
+   private:
+    T* ptr {};
+   ...
+   };
+ };
+
+As such, our Iterator class will have a single member variable, which is a pointer to something of type T, the type of element in the MyVector.
+
+  class Iterator {
+    ...
+   public:
+    explicit Iterator(T* input = nullptr);
+    T& operator*();
+    Iterator& operator++();
+    Iterator& operator--();
+    ...
+   };
+  
+
+In this challenge you will implement the 4 member functions shown here.  The first function constructs an Iterator from a pointer, much like we construct a MyInteger from an int.  The second function, operator*, should return the value of the element where the Iterator points by reference.  The third and fourth functions should respectively increment or decrement the Iterator and then return it (return *this).  Put the implementation of all these functions in the file myVector.cpp.
+
+We also put two friend functions in the Iterator class for testing equality and inequality of Iterators (we put these directly in the myVector.hpp file for simplicity).  We implement these for you.
+
+    friend bool operator==(const Iterator& x, const Iterator& y) {
+      return x.ptr == y.ptr;
+    }
+    friend bool operator!=(const Iterator& x, const Iterator& y) {
+      return not (x == y);
+    }
+Begin and End
+There are two more functions we need to add to our MyVector class to support the iterator functionality, the begin and end functions:
+
+  Iterator begin() const;
+  Iterator end() const;
+The begin function should return an Iterator pointing to the first element of the MyVector.  The end function should return an iterator pointing to one past the last element of the MyVector.
+
+With this functionality added, we can now use range-based for loops on a MyVector!
