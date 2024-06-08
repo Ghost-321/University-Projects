@@ -1,0 +1,28 @@
+Designing a graph data structure
+In the first challenge, you are going to design a class Graph to represent a graph. You only need to handle unweighted graphs, but your class should be able to represent both undirected and directed unweighted graphs. There is going to be less of a scaffold than usual for this exercise, because it will be up to you to make the design choices for how to represent the graph. There is not a "mark" button as this is a more exploratory exercise. We have put comments in the graph.cpp file to indicate the desired output. 
+
+Your class should support the following operations:
+
+Constructor Graph(int N, bool type) --- assign your member variables to represent a graph on N vertices that is directed if type is true and undirected if type is false.  We think of the vertices as being labeled by the integers 0, 1, ... , N-1.
+
+void addEdge(int u, int v) --- add an edge to the graph. If the graph is directed this adds an edge (u,v) directed from vertex u to vertex v. If the graph is undirected it adds the the edge {u,v}. 
+
+bool isEdge(int u, int v) --- returns whether or not there is an edge between vertex u and vertex v.
+
+void adjacentTo(int v) --- print out all the vertices out-adjacent to v in the case of a directed graph or simply adjacent to v in the case of undirected graphs. 
+
+void display() --- print out your representation of the graph.
+
+Performance Challenge: When the graph has N vertices and E edges, aim for a data structure that uses memory 
+𝑂
+(
+𝑁
++
+𝐸
+)
+O(N+E).  Also see if you can implement both addEdge and isEdge so that they run in "average case" time 
+𝑂
+(
+1
+)
+O(1), and so that adjacentTo(v) runs in time proportional to the degree (number of neighbours) of v.
