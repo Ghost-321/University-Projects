@@ -1,0 +1,250 @@
+Egyptian Multiplication
+In this challenge we will get some more practice with recursion.  First, we will write a recursive function to multiply two numbers together.  We will assume throughout that both numbers are non-negative.  We could break down multiplication in a similar way to how we did the factorial function:
+
+𝑥
+ 
+⋅
+ 
+𝑦
+ 
+=
+{
+0
+if 
+𝑦
+=
+0
+𝑥
++
+𝑥
+⋅
+(
+𝑦
+−
+1
+)
+otherwise
+x ⋅ y ={ 
+0
+x+x⋅(y−1)
+​
+  
+if y=0
+otherwise
+​
+ 
+
+The base case is when 
+𝑦
+=
+0
+y=0, and we inexorably move towards the base case by decreasing 
+𝑦
+y in every iteration.  
+
+A problem with this algorithm is that we move towards the base case slowly.  We will have 
+𝑦
+y recursive function calls, which is a lot of overhead and can cause a stack overflow for large values of 
+𝑦
+y.
+
+The ancient Egyptians came up with a recursive algorithm for multiplication where instead we repeatedly halve 
+𝑦
+y rather than just subtracting 1 each time.  This algorithm only has about 
+log
+⁡
+𝑦
+logy recursive calls.  This algorithm is based on the fact that if 
+𝑦
+y is even, then
+
+𝑥
+ 
+⋅
+ 
+𝑦
+ 
+=
+ 
+(
+𝑥
++
+𝑥
+)
+⋅
+𝑦
+/
+2
+ if 
+𝑦
+ even
+x ⋅ y = (x+x)⋅y/2 if y even
+
+Now in the recursive call we want to multiply 
+𝑥
++
+𝑥
+x+x, which we can compute with one addition, with 
+𝑦
+/
+2
+y/2.  If 
+𝑦
+y is odd then (using the behaviour of / in C++, which truncates toward 0) we have
+
+𝑥
+ 
+⋅
+ 
+𝑦
+ 
+=
+ 
+𝑥
++
+(
+𝑥
++
+𝑥
+)
+⋅
+𝑦
+/
+2
+ if 
+𝑦
+ odd
+x ⋅ y = x+(x+x)⋅y/2 if y odd
+
+Give a go implementing Egyptian multiplication in C++.
+
+
+A cool thing about Egyptian multiplication is that the same algorithmic template can be used for other tasks.  Let's apply the same idea to computing the power of a number, that is the function power(x, a) which should return 
+𝑥
+𝑎
+x 
+a
+ .  We will stick to the case where 
+𝑥
+x is an integer and 
+𝑎
+a is a non-negative integer.  Like the case of multiplication, we could easily do this iteratively in a for loop multiplying 
+𝑥
+x by itself 
+𝑎
+a times.  But this is guaranteed to take 
+𝑎
+a iterations. We can apply the same halving idea here in a process known as  iterative squaring.  As we want to practice recursion, I will explain it in a recursive fashion.  For the base case, if a == 0 then pow(x,a) = 1.  If 
+𝑎
+a is even then 
+
+𝑥
+𝑎
+=
+𝑥
+2
+⋅
+𝑎
+/
+2
+=
+(
+𝑥
+2
+)
+𝑎
+/
+2
+=
+pow
+(
+𝑥
+⋅
+𝑥
+,
+𝑎
+/
+2
+)
+x 
+a
+ =x 
+2⋅a/2
+ =(x 
+2
+ ) 
+a/2
+ =pow(x⋅x,a/2)
+
+With one multiplication we reduced the exponent in half!  Finally if 
+𝑎
+a is odd then 
+
+𝑥
+𝑎
+=
+𝑥
+1
++
+2
+⋅
+(
+𝑎
+−
+1
+)
+/
+2
+=
+𝑥
+⋅
+𝑥
+2
+(
+𝑎
+−
+1
+)
+/
+2
+=
+𝑥
+⋅
+pow
+(
+𝑥
+⋅
+𝑥
+,
+ 
+(
+𝑎
+−
+1
+)
+/
+2
+)
+x 
+a
+ =x 
+1+2⋅(a−1)/2
+ =x⋅x 
+2(a−1)/2
+ =x⋅pow(x⋅x, (a−1)/2)
+
+With repeated squaring we only do 
+𝑂
+(
+log
+⁡
+(
+𝑎
+)
+)
+O(log(a)) multiplications instead of 
+𝑎
+a.  See if you can implement these formulas as a recursive algorithm!
+
+Bonus:
+Compare the multiplication and powering algorithms.  Can you generalise these to a single algorithm that can take a function as input so that it can do both multiplication and powering?
