@@ -1,0 +1,10 @@
+Student
+Alice
+Computer Science
+2
+Academic
+Bob
+Programming
+Programmer
+Eve
+Scala
