@@ -1,0 +1,31 @@
+ome Notes on the ParseTree
+The programmatic aim of this assignment is to produce a parse tree similar to what we have seen in the lectures and workshops in a theoretical context. How do we handle this in code?
+
+The parse tree is made from two classes ParseTree and TreeNode. TreeNode does the bulk of the heavy lifting, and ParseTree is the container class.
+
+ParseTree essentially just holds the root node, and offers a way to print the tree.
+
+TreeNode is a little more complex, but is in some ways similar to the Token class we saw last assignment (and in an upgraded form in this assignment). Each TreeNode stores a Label, indicating what part part of the grammar it represents: either a terminal, or a separately labelled variable. All the leaves should be terminals.
+
+In addition, TreeNodes can store a Token. Each leaf should store the token that corresponds to that terminal. Internal nodes, labelled with variables can store a Token, but it's not used for anything and is just ignored (hence the different constructors).
+
+Each TreeNode has a list of children. The ordering of these children should match that of the grammar rule, and thus the order children are added is important.
+
+Each TreeNode also has a parent TreeNode, set at construction of the node. You may find this useful in navigating around the tree if necessary.
+
+The following code snippet constructs a small ParseTree (it does not correspond to a working program, it's just an example) and prints it out:
+///////
+TreeNode assign = new TreeNode(TreeNode.Label.assign, null);
+TreeNode id = new TreeNode(TreeNode.Label.terminal, new Token(Token.TokenType.ID, "x"), assign);
+TreeNode equal = new TreeNode(TreeNode.Label.terminal, new Token(Token.TokenType.ASSIGN), assign);
+TreeNode expr = new TreeNode(TreeNode.Label.expr, assign);
+assign.addChild(id);
+assign.addChild(equal);
+assign.addChild(expr);
+
+ParseTree smallTree = new ParseTree();
+smallTree.setRoot(assign);
+
+System.out.println(smallTree);
+
+////////
