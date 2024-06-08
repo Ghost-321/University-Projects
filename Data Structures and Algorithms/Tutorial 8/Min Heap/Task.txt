@@ -1,0 +1,14 @@
+Min Heap
+In this challenge you will implement a minimum binary heap from scratch using std::vector in a class called Heap.   This will be a toy version of a std::priority_queue.  A Heap is a templated class where the template parameter T represents the type of keys the heap stores.  The main member functions in the Heap class are
+
+void push(const T& key); to add a key to the heap.
+
+void pop(); to remove the top element.
+
+const T& top() const; to view the top (minimum) element.
+
+int size() const; returns the number of elements in the heap.
+
+bool empty() const; returns whether or not there are any elements in the heap.
+
+There are also two private member functions swim and sink.  These are helper functions to implement push and pop, respectively, as described in lecture.
