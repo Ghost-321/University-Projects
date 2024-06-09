@@ -1,0 +1,37 @@
+First Unique Character
+In this week's coding exercise, you are given a string and you want to output the index of the first character in the string that appears exactly once.  If every character in the string appears more than once, then output the size of the string.  The function you are to implement has the following signature:
+
+std::size_t firstUniqueChar(const std::string& inputString);
+This time we are not limited to lower case letters and case matters.  Let's look at some examples:
+
+If the string is "acabcd" then the output should be 3.  Only 'b' and 'd' appear exactly once in the string, and 'b' occurs before 'd', so we output the index of 'b'.  
+
+If the string is "z&##z&" then the output should be 6.  In this case every character appears at least once, so we output the size of the string.
+
+If the string is "abA" then the output should be 0.  Case matters: there is only one 'a' in this string and it is the first character so we output 0.
+
+If the string is "3483499rdl[]l!d[23r82aq!" then the output should be 11.  The first unique character in the string is ']' whose index is 11.
+
+If the string is "lk?e[j!lw[kds]jkds]!lew?" then the output should be 24, the size of the string.  In this case every character appears more than once.
+
+Your solution should run in time 
+𝑂
+(
+𝑛
+log
+⁡
+𝑛
+)
+O(nlogn) on a random string of size 
+𝑛
+n.  When you press "mark" we test your function on 25 test cases, and we have set a time limit to finish running on these test cases. The brute force 
+Θ
+(
+𝑛
+2
+)
+Θ(n 
+2
+ ) algorithm will cause Ed to time out.  10 of the test cases are given to you in main.cpp.  The remaining 15 test cases are hidden and only run when you press "mark".
+
+Your score for the coding challenge is purely determined by the number of test cases you pass (i.e. your score out of 100 is 4 times the number of test cases you pass).
