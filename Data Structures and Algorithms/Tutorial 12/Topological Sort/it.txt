@@ -1,0 +1,14 @@
+[] 31265, title Communication for IT Professionals
+[] 31266, title Introduction to Information Systems
+[] 31268, title Web Systems
+[31266] 31269, title Business Requirements Modelling
+[] 41092, title Network Fundamentals
+[41039] 31271, title Database Fundamentals
+[31269, 31266, 31265] 31272, title Project Management and the Professional
+[] 41039, title Programming 1
+[] 81547, title Leadership in Innovation
+[] 81546, title Innovation in Complex Systems
+[] 81529, title Innovation Futures Thinking Beyond What Is
+[31257] 31245, title Business Process and IT Strategy
+[31257] 41195, title IS Professional Capstone A
+[31269] 31257, title Information System Development Methodologies
