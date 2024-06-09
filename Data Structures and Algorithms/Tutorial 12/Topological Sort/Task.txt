@@ -1,0 +1,106 @@
+Topological Sort
+In order to graduate from university, you need to know how to do a topological sort!  The order in which you take your courses is a topological order--- a topological order of the prerequisite graph of the courses required for your degree.  What is the prerequisite graph?  Well, in this graph vertices are labeled by course names.  And there is a directed edge from course A to course B if course A is a prerequisite for course B.  
+
+
+In this coding challenge, you will implement a topological sort algorithm to find a valid order in which to take courses for various UTS majors.  Tutor Karl scraped the UTS course websites so we can use real data for this challenge.  In the scaffold there are files representing the course prerequisite graphs for a bachelor in artificial intelligence, bachelor of IT, bachelor of games, and bachelor of enterprise.  These files look something like this:
+
+[31266, 31269, 41078] 31272, title Project Management and the Professional
+[] 31266, title Introduction to Information Systems
+[31266] 31269, title Business Requirements Modeling
+There is a line like this for each course in the major.  In the brackets a list of prerequisites is given for the course listed after the brackets, followed by the title of the course.  We provide code in the scaffold to parse these files to create the prerequisite graph.
+
+Graph Class
+The basic Graph class is implemented for you and looks like this:
+
+class Graph {
+ private:
+  std::unordered_map<std::string, std::unordered_set<std::string> > adjList {};
+
+ public:
+  // default constructor
+  Graph();
+  // construct graph from file
+  explicit Graph(const std::string&);
+
+  // adds strings as vertices if they are not already present
+  void addEdge(const std::string&, const std::string&);
+  void addVertex(const std::string&);
+
+  bool isEdge(const std::string&, const std::string&) const;
+  bool isVertex(const std::string&) const;
+  std::size_t numVertices() const;
+  ...
+};
+
+Vertices are labeled by strings with the course number, like "31251".  As vertices are labeled by strings, we use an unordered_map with the vertex names as keys and the value being an unordered_set holding the names of all the courses for which the vertex is a prerequisite.  The rest of the Graph class is pretty standard like we have seen before.
+
+A new element for this challenge is how we let a user interface with the graph to iterate over vertices or iterate over the out-adjacent neighbours of a vertex.  This is provided by the following member functions in the Graph class.
+
+  // this time we let the user interface with the graph via a const iterator
+  // const so they can't change our graph with the iterator
+  using iterator = std::unordered_map<std::string,
+            std::unordered_set<std::string> >::const_iterator;
+
+  // cbegin returns const iterator pointing to first element of adjList
+  iterator begin() const {
+    return adjList.cbegin();
+  }
+
+  iterator end() const {
+    return adjList.cend();
+  }
+
+  // return iterator to a particular vertex
+  iterator find(const std::string& a) const {
+    return adjList.find(a);
+  }
+
+This attempts to isolate the implementation of the adjacency list from the user of the Graph class.  Like the containers in the standard library, a user can now interact with the graph via a Graph::iterator.  If we later decided to change the unordered_map to a map, for example, the user would not have to change their own code.
+
+To iterate over the vertices of the graph you can do this:
+
+  for (Graph::iterator it = G.begin(); it != G.end(); ++it) {
+    // do something with it->first 
+And for the all important operation of iterating over the out-adjacent neighbours of a vertex you can do this:
+
+for (const std::string& neighbour : G.find(vertex)->second)
+Finding a topological order:
+Actually finding a topological order of a graph will be done by a separate class.  The member functions of this class are what you have to implement.
+
+class TopoOrder {
+  std::unordered_set<std::string> visited {};
+  std::unordered_set<std::string> onStack {};
+  std::vector<std::string> order {};
+  std::vector<std::string> cycle {};
+  std::unordered_map<std::string, std::string> arrivedFrom {};
+
+ public:
+  TopoOrder();
+  bool computeTopoOrder(const Graph&);
+  std::vector<std::string> getOrder() const;
+  std::vector<std::string> getCycle() const;
+
+ private:
+  bool dfsVisit(const std::string&, const Graph&);
+};
+
+The function computeTopoOrder returns a boolean value indicating if the graph has a cycle or not.  If the graph does have a cycle, the cycle is stored in the member variable cycle.  If it does not have a cycle, then there is a topological order, which is then stored in the private member variable order.  
+
+As in the directed cycle challenge we have a helper function dfsVisit where now dfsVisit(v, G) does depth-first search starting on vertex v in the graph G.  We also have the same auxiliary variables from that challenge like visited, onStack, and arrivedFrom that respectively indicate if we have already visited a vertex, if the call to dfsVisit on a vertex is still open, and from which vertex we visited v when dfsVisit(v, G) was called.
+
+The only change that needs to made here is to record when dfsVisit finishes on a vertex v.  This gives us a postordering of the vertices.  As we showed in lecture the reverse of a postorder sequence is a topological order!
+
+Discussion:
+In setting up this challenge there are several possible design options:
+
+We could make the computeTopoOrder function a member of the Graph class
+
+We could make computeTopoOrder a free function, not part of any class, which takes a Graph G as an argument.
+
+We could make a separate class, as we have chosen to do, which has the computeTopoOrder function as a member function.
+
+What do you think are the advantages and disadvantages of these different approaches?
+
+In this challenge, we allowed a user to iterate over the vertices of the graph and the neighbours of a vertex via a Graph::iterator.  In the previous challenge, we allowed the latter via a member function in the graph class std::unordered_set neighbours(int) const; 
+
+Which approach do you think is better?
