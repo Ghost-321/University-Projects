@@ -1,0 +1,67 @@
+Farmer Fran
+Farmer Fran needs eggs to make an omelette.  She grows hay and also keeps chickens.  Each day she can grow one new bale of hay and each day every chicken lays one egg.  We keep track of her hay, eggs and chickens in the Inventory struct:
+
+struct Inventory {
+  int hay {};
+  int eggs {};
+  int chickens {};
+  ...
+};
+Each day Fran can optionally make one trade.  Here are the possible trades:
+
+Trade 2 bales of hay for 1 chicken.
+
+Trade 1 bale of hay for 2 eggs.
+
+Trade 3 eggs for 1 chicken
+
+No trade 
+
+Each day Fran can only do one of these transactions.  For example if she has 4 bales of hay she cannot trade this for 2 chickens in a single day.  This transaction can be done after Fran obtains her new hay and eggs for the day.  You cannot go into debt to make a trade.  For example to trade 2 bales of hay for a chicken you must have (after receiving your new bale of hay for the day) at least 2 bales of hay.
+
+The problem is to determine how many days it will take Fran to reach a target number of eggs, given an initial Inventory.  The function we want to implement is:
+
+int daysForEggs(const Inventory& origin, int numberOfEggs);
+Given a starting inventory, and target number of eggs, what is the fewest number of days needed to obtain numberOfEggs?  You do not need to return the sequence of trades to obtain this number of eggs, just the number of days.
+
+Believe it or not, this is a shortest path problem on a graph and can be solved using breadth-first search.  As we highlighted in lecture, to do breadth-first search we do not need to explicitly store a graph.  All we need is to iterate over the neighbours of a given vertex.  In this problem we have a directed graph where vertices represent a state of Inventory.  There is a directed edge from state1  to state2 if we can reach state2 from state1 in one day.  Then finding the minimum number of days to go from a starting state to a state with a certain number of eggs is a shortest path problem in this graph.
+
+We have already provided the breadth-first search code for you (taken from the Knight Moves tutorial).  This code relies on the getNeighbours function:
+
+std::vector<Inventory> getNeighbours(Inventory state);
+
+You need to implement the getNeighbours function.  This function should return a vector containing all the possible Inventories that can be reached from state in one day, in other words all the out-adjacent neighbours of state in the graph described above.
+
+Example 0:
+
+Let's say we start with 1 bale of hay, 5 eggs, and one chicken. I will write this Inventory as {1, 5 , 1}, and the target number of eggs is 5.  We already have the target number of eggs, so the answer is zero days.
+
+Example 1: 
+
+Let's say we start with 1 bale of hay, no eggs, and no chickens.  I will write this Inventory as {1, 0 , 0}.  We can obtain 3 eggs in two days.  
+
+{1, 0, 0} starting state day 0
+
+{1, 2, 0} day 1: we got one new bale of hay, then traded one bale of hay for 2 eggs.
+
+{1, 4, 0} day 2: we got one new bale of hay, then traded one bale of hay for 2 eggs.
+
+Example 2: 
+
+Let's again start with 1 bale of hay, no eggs, and no chickens.  Let's say we want to get 15 eggs.  We can do this in 6 days.
+
+{1, 0, 0} starting state day 0
+
+{0, 0, 1} day 1: we got one new bale of hay, then traded 2 hay for 1 chicken
+
+{0, 3, 1} day 2: we got one new bale of hay and the chicken laid one egg. We traded the hay for 2 eggs.
+
+{0, 6, 1} day 3: we got one new bale of hay and the chicken laid one egg. We traded the hay for 2 eggs.
+
+{0, 9, 1} day 4: we got one new bale of hay and the chicken laid one egg. We traded the hay for 2 eggs.
+
+{0, 12, 1} day 5: we got one new bale of hay and the chicken laid one egg. We traded the hay for 2 eggs.
+
+{0, 15, 1} day 6: we got one new bale of hay and the chicken laid one egg. We traded the hay for 2 eggs.
+
+Grading: When you press mark your code is run against 25 test cases.  Your score out of 100% is the number of test cases you pass times four.
