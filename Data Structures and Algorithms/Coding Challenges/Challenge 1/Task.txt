@@ -1,0 +1,6 @@
+Coding Challenge 1
+In our first coding challenge you will implement a function maxValue which takes as input a vector of integers and returns the maximum value in the vector.  Your function can have an arbitrary behaviour when the input vector is empty--in our testing we will not call maxValue on an empty vector.
+
+There are three files in the scaffold.  The marker will only use max.hpp and max.cpp.  You do not need to do anything with the file max.hpp.  Implement your solution in the file max.cpp.  The file main.cpp is provided for you to test your implementation.  Some sample tests are already included in main.cpp, feel free to add your own.  You can submit as many times as you like until the deadline.
+
+For this exercise, please write the maxValue function from scratch without using any functions from the <algorithm> library.
