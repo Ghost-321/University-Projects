@@ -1,0 +1,75 @@
+Finding a directed cycle
+Does this graph have a directed cycle?
+
+
+It may take a minute to verify that it does not.  In this challenge you will write a program to check if a "grid graph" like this has a cycle.  For this challenge, a grid graph is a graph with m rows and n columns and a vertex at each (row, column) position for row = 0, ..., m - 1 and column = 0, ..., n -1.  For each vertex there is an edge to its north, east, south, west neighbours (when these exist) and the edge can be arbitrarily directed.   
+
+Grid Graph:
+We give you a GridGraph class that looks like this:
+
+class GridGraph {
+ private:
+  // identify {x, y} grid point with integer x * numCols + y
+  // this lets us use a vector instead of a map here
+  std::vector<std::unordered_set<int> > adjList {};
+  int numRows {};
+  int numCols {};
+
+ public:
+  // create empty grid graph with m rows and n columns
+  GridGraph(int m, int n);
+
+  // return unordered_set of neighbours of a vertex
+  std::unordered_set<int> neighbours(int) const;
+
+  // add edges via grid points
+  void addEdge(std::pair<int, int>, std::pair<int, int>);
+  bool isEdge(std::pair<int, int>, std::pair<int, int>) const;
+
+  int numVertices() const;
+
+  // helper functions to convert between grid points and integers
+  int pairToInt(const std::pair<int, int>&) const;
+  std::pair<int, int> intToPair(int) const;
+
+ private:
+  // internally it is easier to work with integers rather than grid points
+  void addEdge(int, int);
+  bool isEdge(int, int) const;
+};
+
+Internally we map grid points (x, y) to an integer by taking them in sequence along the rows.  It is convenient when the name of a vertex is just an integer from 0 to the number of vertices - 1 as then we can just use a vector of unordered_sets std::vector<std::unordered_set<int> > to be our adjacency list.  This has two advantages: if we represented grid points as pairs std::pair<int, int> then we could not easily use an unordered_set, because the standard library does not provide a hash function for a pair of integers, and a hash function is needed for a type in order to use unordered_set (or unordered_map).  The second is that it lets us use a vector to hold the lists of neighbours, which will generally be easier an faster than having the "adjacency list" be a std::unordered_map<std::unordered_set<int> >. 
+
+Implementation:
+You will write the code to find a directed cycle in a separate DirectedCycle class: 
+
+class DirectedCycle {
+  // visited[v] is true if dfsVisit(v) has already been called
+  std::vector<bool> visited {};
+  // onStack[v] true while dfsVisit(v) is running
+  std::vector<bool> onStack {};
+  // hold names of grid points on cycle if we find one
+  std::vector<std::pair<int, int> > cycle {};
+  // record which edge we took to arrive at vertex in dfs
+  std::unordered_map<int, int> arrivedFrom {};
+
+ public:
+  // Default constructor does not need to do anything
+  DirectedCycle();
+  // containsCycle returns a boolean if there is a cycle or not.
+  // if a cycle is found it is stored in cycle private member variable
+  bool containsCycle(const GridGraph& G);
+  // getter for the cycle private member variable
+  std::vector<std::pair<int, int> > getCycle() const;
+
+ private:
+  // helper function for dfs
+  bool dfsVisit(int, const GridGraph& G);
+  // helper function to help reconstruct the cycle
+  std::vector<std::pair<int, int> > createCycle(int, int,
+                                                const GridGraph& G) const;
+};
+
+The member function for you to implement is containsCycle.  This returns a boolean to indicate if a cycle exists or not.  If there is a cycle, it should be stored in the member variable std::vector<std::pair<int, int> > cycle.  
+
+As discussed in lecture, we can detect a cycle by a simple modification to depth first search.  We keep track of for which vertices the call to dfsVisit is still active.  This is done via the onStack member variable.  If while in dfsVisit on a vertex v we find an edge to a neighbour u for which onStack[u] == true then there must be a cycle.  The edge (v, u) is called a back edge.  We can then reconstruct the cycle using the member variable std::unordered_map<int, int> arrivedFrom.  If dfsVisit on vertex v is called while exploring the out-adjacent neighbours of u then we set arrivedFrom[v] = u.
