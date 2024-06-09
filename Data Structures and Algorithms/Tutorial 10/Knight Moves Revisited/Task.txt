@@ -1,0 +1,384 @@
+Knight Moves Revisited
+In this challenge we revisit the Knight Moves problem from last week.  We will see a surprising application of Dijkstra'a algorithm to speed up finding a shortest path for the knight to take from (0, 0) to a given target square (x, y).  
+
+This is surprising because for the Knight Moves problem we naturally have an unweighted graph, whereas Dijkstra is typically useful for non-negative weighted graphs.  For unweighted graphs we can just use the simpler breadth-first search instead, right?
+
+Well, you may have noticed something dumb about breadth-first search for the Knight Moves problem.  Say we want to find the shortest path for the knight from (0, 0) to the square (-2, -4) and that we explore the neighbours of a vertex according to the following order of moves.
+
+{ {2, 1}, {2, -1}, {1, 2}, {1, -2}, {-1, 2}, {-1, -2}, {-2, 1}, {-2, -1} };
+
+The square (-4, -2) can be reached in just two moves, but we visit 41 vertices before we reach it.  The above picture shows the visit order of breadth-first search in starting from (0, 0), the square labeled with a zero.  The visit order of breadth-first search is independent of the target vertex we are looking for---when we are trying to find the shortest path to (-4, -2) it seems quite silly to be exploring vertices like (2, 1) that are further away from the target than where we started.
+
+We can remedy this situation by giving the algorithm a suggestion of which squares might be useful to visit earlier because they are probably closer to the target.  We do this by means of a heuristic distance function 
+ℎ
+h.  Say that the target vertex we are looking for is 
+(
+𝑥
+,
+𝑦
+)
+(x,y).  The heuristic distance 
+ℎ
+(
+𝑖
+,
+𝑗
+)
+h(i,j) for a square 
+(
+𝑖
+,
+𝑗
+)
+(i,j) is an estimate of how many moves it will take to reach the target from 
+(
+𝑖
+,
+𝑗
+)
+(i,j).  It is important that this estimate is a lower bound on the actual least number of moves to go from 
+(
+𝑖
+,
+𝑗
+)
+(i,j) to 
+(
+𝑥
+,
+𝑦
+)
+(x,y).  In many situations there is a heuristic estimate that is easy to calculate.  In the case of Knight Moves we can use the following heuristic: h(i,j) = max( (abs(x - i)+1)/2, (abs(y-j)+1)/2).  This follows because we can only move at most 2 steps in a given direction in any one move.  Thus the ceiling of abs(x-i)/2 and the ceiling of (y-j)/2 are both lower bounds on the number of steps we need to take.  We can take the larger of these lower bounds by taking the max of them.
+
+When the heuristic is a lower bound on the true distance, we can use it to change our unweighted undirected graph into a weighted and directed graph with non-negative weights such that a shortest path from (0, 0) to (x, y) in the original graph is still a shortest path from (0, 0) to (x, y) in the new graph.  We can then use Dijkstra's algorithm to find a shortest path from (0, 0) to (x, y) in the new weighted and directed graph, and the weights are such that Dijkstra will visit vertices that are probably closer to the target (i.e. have smaller heuristic distance) earlier.  
+
+What is this new weighted graph? A wonderful exposition of this technique with nice visualisations is given in this video by the YouTube channel polylog.  We highly recommend watching it.  This technique also goes by the name A* search, although one can view it purely as modifying the edge weights of a graph and applying a shortest path algorithm in the new graph.
+
+We think of h(i, j) as a potential associated to each vertex.  Vertices that are probably closer to the target have lower potential, and the target itself has zero potential.  If we can go from square (a, b) to square (c, d) by one knight move, in the new graph we make a directed edge from (a, b) to (c, d) with weight 1 + h(c, d) - h(a, b).  Thus if (c, d) has lower potential than (a, b) (i.e. is probably closer to the target) then the weight of this edge becomes smaller than its original value of 1 and we are more likely to visit (c, d) earlier in Dijkstra's algorithm.  If (c, d) has larger potential than (a, b) then the weight of this edge increases from its original value to be larger than 1.  This causes us to delay visiting (c, d) it in Dijkstra's algorithm.  The fact that the heuristic is a lower bound on the true distance ensures that the weights in the new graph are non-negative.
+
+The final thing to see is why a shortest path from (0, 0) to (x, y) in the original graph is still a shortest path from (0, 0) to (x, y) in the new graph.  Let's look at a path from (0, 0) to (x, y) in the original graph and say the vertices on this path are 
+𝑎
+0
+=
+(
+0
+,
+0
+)
+,
+𝑎
+1
+,
+…
+,
+𝑎
+𝑘
+=
+(
+𝑥
+,
+𝑦
+)
+a 
+0
+​
+ =(0,0),a 
+1
+​
+ ,…,a 
+k
+​
+ =(x,y).  In the original graph the length of this path is 
+𝑘
+k.  Now what is the length of this path in the new graph?  The sum of the edge weights along the path is 
+
+[
+1
++
+ℎ
+(
+𝑎
+1
+)
+−
+ℎ
+(
+𝑎
+0
+)
+]
++
+[
+1
++
+ℎ
+(
+𝑎
+2
+)
+−
+ℎ
+(
+𝑎
+1
+)
+]
++
+…
++
+[
+1
++
+ℎ
+(
+𝑎
+𝑘
+−
+1
+−
+ℎ
+(
+𝑎
+𝑘
+−
+2
+)
+]
++
+[
+1
++
+ℎ
+(
+𝑎
+𝑘
+)
+−
+ℎ
+(
+𝑎
+𝑘
+−
+1
+]
+)
+=
+𝑘
++
+ℎ
+(
+𝑎
+𝑘
+)
+−
+ℎ
+(
+𝑎
+0
+)
+=
+𝑘
+−
+ℎ
+(
+𝑎
+0
+)
+[1+h(a 
+1
+​
+ )−h(a 
+0
+​
+ )]+[1+h(a 
+2
+​
+ )−h(a 
+1
+​
+ )]+…+[1+h(a 
+k−1
+​
+ −h(a 
+k−2
+​
+ )]+[1+h(a 
+k
+​
+ )−h(a 
+k−1
+​
+ ])=k+h(a 
+k
+​
+ )−h(a 
+0
+​
+ )=k−h(a 
+0
+​
+ ).
+
+We have here what is called a telescoping sum: the 
+ℎ
+(
+𝑎
+1
+)
+h(a 
+1
+​
+ ) term from the weight of the edge (a_0, a_1) is canceled by the 
+−
+ℎ
+(
+𝑎
+1
+)
+−h(a 
+1
+​
+ ) term from the weight of the edge 
+(
+𝑎
+1
+,
+𝑎
+2
+)
+(a 
+1
+​
+ ,a 
+2
+​
+ ).  This goes on like this so that the 
+ℎ
+(
+𝑎
+𝑖
+)
+h(a 
+i
+​
+ ) terms for all intermediate vertices go away and we are left with 
+𝑘
++
+ℎ
+(
+𝑎
+𝑘
+)
+−
+ℎ
+(
+𝑎
+0
+)
+k+h(a 
+k
+​
+ )−h(a 
+0
+​
+ ).  Finally, 
+ℎ
+(
+𝑎
+𝑘
+)
+=
+0
+h(a 
+k
+​
+ )=0 since 
+𝑎
+𝑘
+a 
+k
+​
+  is the target (and the heuristic is a lower bound on the true distance to the target), so we are just left with 
+𝑘
+−
+ℎ
+(
+𝑎
+0
+)
+k−h(a 
+0
+​
+ ). 
+
+The conclusion is that the length of a path from 
+(
+0
+,
+0
+)
+(0,0) to the target 
+(
+𝑥
+,
+𝑦
+)
+(x,y) in the new weighted graph is just the length of the same path in the original graph minus 
+ℎ
+(
+0
+,
+0
+)
+h(0,0).  The 
+ℎ
+(
+0
+,
+0
+)
+h(0,0) term is constant, independent of the path we consider, so a shortest path from 
+(
+0
+,
+0
+)
+(0,0) to 
+(
+𝑥
+,
+𝑦
+)
+(x,y) in the weighted graph will also be a shortest path from 
+(
+0
+,
+0
+)
+(0,0) to 
+(
+𝑥
+,
+𝑦
+)
+(x,y) in the new graph.
+
+Conclusion: When we apply this approach to find the shortest path from (0, 0) to (-4, -2), we will first visit a vertex whose 
+𝑥
+x-coordinate is -2 as these have smallest potential.  In our implementation, we actually first visit 
+(
+−
+2
+,
+−
+1
+)
+(−2,−1) and then directly visit 
+(
+−
+4
+,
+−
+2
+)
+(−4,−2) in the next round.  This is a huge improvement from visiting 40 other vertices first as in breadth-first search!  
