@@ -1,0 +1,17 @@
+Same Letters
+In this week's coding challenge you will write a function that, given two strings, determines if they contain exactly the same letters, including repetitions.  The function has the following signature:
+
+bool sameLetters(const std::string&, const std::string&);
+The parameters are const references, so if you want to use an algorithm that will modify a parameter you need to make a copy of it first.  
+
+We will only test your code on input strings consist of the lower case letters a-z.  Let's look at some examples.
+
+On inputs "abc" and "cab", the function should return true.
+
+On inputs "aaa" and "aaaa", the function should return false.  The strings have to have the same letters including repetitions.
+
+On inputs "aabbc" and "bacab", the function should return true.
+
+On inputs "cab" and "bab", the function should return false.
+
+As usual we provide three files.  Implement your solution in same_letters.cpp.  Please do not alter the header file same_letters.hpp.  The marker will only make use of these two files.  We provide main.cpp with some test cases to get you started.  You are free to modify main.cpp as you like for your own testing and debugging.  You must press mark in order for your solution to be graded.  When you hit mark we will test your code against additional hidden test cases for a total of 20 test cases.  Your score for the coding challenge is the percentage of the test cases you pas
