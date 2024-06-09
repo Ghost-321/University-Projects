@@ -1,0 +1,19 @@
+[] 31265, title Communication for IT Professionals
+[] 31266, title Introduction to Information Systems
+[] 31268, title Web Systems
+[31266] 31269, title Business Requirements Modelling
+[] 41092, title Network Fundamentals
+[41039] 31271, title Database Fundamentals
+[31269, 31266, 31265] 31272, title Project Management and the Professional
+[] 41039, title Programming 1
+[] 31260, title Fundamentals of Interaction Design
+[31263] 31262, title Game Design Methodologies
+[] 31263, title Introduction to Computer Game Development
+[31263] 31264, title Computer Graphics
+[31263, 31251] 41024, title Advanced Games Programming
+[31262] 31102, title Game Design Studio 1
+[31102] 31103, title Game Design Studio 2
+[48024] 31251, title Data Structures and Algorithms
+[41039] 48024, title Programming 2
+[31264] 31241, title Interactive 3D Animation
+[31262, 31272] 31248, title Serious Games and Gamification Studio
