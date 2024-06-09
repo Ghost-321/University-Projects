@@ -1,0 +1,62 @@
+Dijkstra Example
+In this challenge you will implement Dijkstra's shortest path algorithm.  In a weighted and directed graph with non-negative weights, this algorithm can find the length of a shortest path from a source vertex 
+𝑣
+v to every other vertex in the graph.  
+
+We set up a graph class to store a weighted directed graph that looks like this:
+
+class Graph {
+ private:
+  std::vector<std::unordered_map<int, double> > adjList {};
+  int numVertices {};
+ ...
+};
+We store the number of vertices in the member variable numVertices.  The names of the vertices will be the ints 0, 1, 2, ..., numVertices-1.  The edge weights are of type double.
+
+To store the graph we use an "adjacency list" approach with the data structure std::vector<std::unordered_map<int, double> >.  For each vertex i we have that adjList.at(i) is an unordered_map with key-value pairs {j, weight} for each outgoing edge (i, j), where weight is the weight of this edge.
+
+There are two constructors for this class:
+
+  // create an empty graph with N vertices
+  explicit Graph(int N);
+
+  // construct graph from edge list in filename
+  explicit Graph(const std::string& filename);
+The second constructor reads in a graph from a file.  There are two graph files provided on the scaffold, tinyEWD.txt, which has 8 vertices, and mediumEWD.txt, which has 250 vertices.  The first line of the file says the number of vertices.  After that the lines are of the form 0 3 0.25 which indicates an edge directed from vertex 0 to vertex 3 with weight 0.25.  I took these graphs from the chapter on shortest paths in the book Algorithms by Sedgewick and Wayne.  You can see their description of Dijkstra's algorithm using tinyEWD.txt as an example here.  
+
+Next are two simple member functions to add an edge and return the number of vertices in the graph.
+
+  void addEdge(int i, int j, double weight);
+  int size() const;
+Finally, a very important primitive in the Graph class is the ability to iterate over the neighbours of a vertex.  We allow this with the following:
+
+// alias a const iterator to our adjacency list type to iterator
+  using iterator = 
+  std::vector<std::unordered_map<int, double> >::const_iterator;
+
+  // cbegin returns const iterator pointing to first element of adjList
+  iterator begin() const {
+    return adjList.cbegin();
+  }
+
+  iterator end() const {
+    return adjList.cend();
+  }
+
+  // return iterator to a particular vertex
+  iterator neighbours(int a) const {
+    return adjList.begin() + a;
+  }
+
+The key takeaway from this is that for a vertex v you can get the names of the out-adjacent neighbours and associated weight of the edge like this:
+
+for (const auto& [neighbour, weight] : *G.neighbours(v)) {...}
+Your task is to implement the free function std::vector<double> singleSourceShortestPaths(const Graph& G, int source) .  Given a graph G and a source vertex, this function should return the length of a shortest path from the source vertex to every other vertex in G as a std::vector<double>.
+
+Implementation: In Dijkstra's algorithm we have a bestDistanceTo vector which keeps track of the length of a shortest path we have found so far from the source vertex to every other vertex in the graph.  We initialise this vector with bestDistanceTo.at(source) = 0 and bestDistanceTo.at(v) = infinity for every other vertex v.  As described in lecture, the key operation in Dijkstra's algorithm is to relax all the outgoing edges of a vertex.  To relax an edge from u to v we check if bestDistanceTo.at(v) > bestDistanceTo.at(u) + weight of (u,v).  That is, can we improve the shortest path we have found to v by going via u?  If so then we update bestDistanceTo.at(v).
+
+We say that a vertex has been visited after we relax all its outgoing edges.  
+
+With this setup, Dijkstra'a algorithm is actually pretty simple: in each round we choose the unvisited vertex with minimum bestDistanceTo value and relax all its outgoing edges.
+
+The tricky thing about the implementation is how to choose the unvisited vertex with minimum bestDistanceTo value.  There are several different ways this can be done in C++.  This blog post has a great description of the different options.  The method that we describe in lecture is the lazy Dijkstra approach.  We use a minimum priority queue where the primary key is the bestDistanceTo value.  When relaxing an edge (u,v), if we update bestDistanceTo.at(v) then we push v to the priority queue with this new distance value.  This is called lazy because this way v can appear in the priority queue several times with different distance values.  We don't worry about removing the copies of v that have "old" and worse distance values.
