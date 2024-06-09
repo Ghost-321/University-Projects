@@ -1,0 +1,35 @@
+Single Number
+In this week's coding exercise you are given a vector of integers with the promise that there is exactly one number in the vector that appears once.  The task is to output this number that only appears once.  The function you are to implement has the following signature:
+
+int singleNumber(const std::vector<int>& vec);
+Let's look at some examples
+
+if vec = {2} then the output should be 2.
+
+if vec = {1, 2, 1, 3, 2} then the output should be 3.
+
+if vec = {3, 3, 3, 4, 3, 5, 5} then the output should be 4.
+
+We will not test your algorithm on the empty vector or a vector which does not have a unique element which appears once.  In these cases you can return any integer value you want.  You can use any standard library functions you want for this exercise (feel free to add more #include of libraries if needed).
+
+Your algorithm should run in time 
+𝑂
+(
+𝑛
+log
+⁡
+𝑛
+)
+O(nlogn) when the input vector has size 
+𝑛
+n.  When you press "mark" we test your function on 20 test cases, and we have set a time limit to finish running on these test cases.  The brute force 
+Θ
+(
+𝑛
+2
+)
+Θ(n 
+2
+ ) algorithm will cause Ed to time out.  
+
+Your score for the coding challenge is purely determined by the number of test cases you pass (i.e. your score out of 100 is 5 times the number of test cases you pass).
