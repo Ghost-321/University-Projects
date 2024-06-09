@@ -1,0 +1,31 @@
+Best Time To Buy and Sell Stock
+This week we are going to look at a classic leetcode problem, the best time to buy and sell stock.  We are given a vector prices of 
+𝑛
+n integers.  Here prices.at(i) represents the price of a stock on day i.  We are allowed to buy the stock once, and, at a later date, sell it once.  What is the most money we can make?  Note that here we have the benefit of hindsight--we see the entire history of stock prices and can "go back in time" to buy and sell it at the best possible times.  We are allowed to buy and sell on the same day, so the profit is always at least 0.
+
+Your task is to write a function with the signature
+
+int maxProfit(const std::vector& prices);
+that returns the largest profit you can make with the history of stock prices given in prices.  You should put your implementation of this function in the file stock.cpp.
+
+Here are some examples of what the function should output:
+
+TEST(stock, sizeOne) {
+  std::vector<int> prices {5};
+  EXPECT_EQ(maxProfit(prices), 0);
+}
+
+TEST(stock, sizeTwoIncreasing) {
+  std::vector<int> prices {5, 8};
+  EXPECT_EQ(maxProfit(prices), 3);
+}
+
+TEST(stock, sizeTwoDecreasing) {
+  std::vector<int> prices {8, 5};
+  EXPECT_EQ(maxProfit(prices), 0);
+}
+
+TEST(stock, notMaxMinusMin) {
+  std::vector<int> prices {100, 5, 8, 3};
+  EXPECT_EQ(maxProfit(prices), 3);
+}
