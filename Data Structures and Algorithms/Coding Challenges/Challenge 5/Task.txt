@@ -1,0 +1,27 @@
+Number of unique elements
+In this week's coding exercise you are given a vector of integers and you want to determine how many distinct numbers appear in the vector.  The signature of the function looks as follows:
+
+int numberOfDistinctElements(const std::vector<int>& vec);
+Let's look at some examples
+
+if vec = {2} then the output should be 1.
+
+if vec = {2, 2} then the output should be 1.  The only number that appears is 2.
+
+if vec = {1, 1, 2, 2, 3, 3} then the output should be 3 because the distinct numbers are 1, 2, 3.
+
+if vec = {3, 3, 3, 4, 3, 5, 5} then the output should be 3 because the distinct numbers are 3, 4, 5.
+
+Your algorithm should run in time 
+𝑂
+(
+𝑛
+log
+⁡
+𝑛
+)
+O(nlogn) when the input vector has size 
+𝑛
+n.  When you press "mark" we test your function on 20 test cases, and we have set a time limit to finish running on these test cases.  You are free to include other libraries and use functions from the <algorithm> library.  As a hint, you may want to take a look at the std::unique function to see how it might help to solve this problem.
+
+Your score for the coding challenge is purely determined by the number of test cases you pass (i.e. your score out of 100 is 5 times the number of test cases you pass).
