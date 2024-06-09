@@ -1,0 +1,39 @@
+Binary Search Tree
+In this challenge you will implement a basic binary search tree in the class BST.  BST will be a templated class where keys are of type T. Like MyList from Programming Assignment 1, BST has an inner Node class where nodes hold keys of type T.  The difference is that now a Node has pointers to left and right children, rather than previous and next.  Here are the member functions to implement in the BST class:
+
+void insert(const T& k); If k is not already in the tree, insert it into the tree.  If it is already present, no action is taken.
+
+Node* find(const T& k) const; Return a pointer to the node holding key k if k is in the tree.  Otherwise, return nullptr.
+
+Node* min() const; Return a pointer to the node holding the minimum key in the tree.  Return nullptr if the tree is empty.
+
+Node* successor(const T& k) const; Return a pointer to the node holding the smallest key larger than k.  Return nullptr if k is not in the tree or if k is the largest key in the tree.
+
+std::vector<T> makeVector() const; Output a vector containing all keys in the tree sorted from smallest to largest.
+
+~BST(); The BST destructor frees the memory of all nodes in the tree.  Think about what kind of tree-traversal would be good for this!
+
+Unlike a lot of our challenges, BST is not a toy version of std::set.  The reason is that std::set guarantees that insert and find take time 
+𝑂
+(
+log
+⁡
+𝑛
+)
+O(logn) when the data structure has 
+𝑛
+n keys.  It typically does this by re-balancing the tree as needed so that the depth is always 
+𝑂
+(
+log
+⁡
+𝑛
+)
+O(logn).  Our BST class does not do any re-balancing, so the depth can become 
+Θ
+(
+𝑛
+)
+Θ(n), making these operations slow.
+
+Implement your solution in the bst.cpp file.  As usual we provide main.cpp with some unit tests to assist with your testing and debugging.
