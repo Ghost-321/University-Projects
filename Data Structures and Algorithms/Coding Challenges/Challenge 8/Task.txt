@@ -1,0 +1,71 @@
+Identifying edges in a maze
+In this exercise we will work with graphs where the vertices are laid out in a grid like this:
+
+
+I have written the name of the vertex above it--it is labeled by its row and column number, where rows count how many steps the vertex is down from the top, and column counts how many steps the vertex is to the right.  We will only consider grid graphs where a vertex is possibly adjacent to a vertex immediately to its left, its right, above it, or below it.  For example, the possible neighbours of vertex (3,2) are (3,1), (3,3), (2,2) and (4,2).
+
+We will represent a grid graph in a fun way, as a "maze" with walls and corridors like this:
+
+#####
+# # #
+##  #
+#  ##
+#####
+Here a '#' represents a wall and a ' ' is a corridor.  This picture corresponds to the following graph:
+
+
+Given two positions in the maze, they are adjacent in the graph if (and only if)
+
+1) they are both valid positions in the maze
+
+2) one can be reached from the other by a single step left, right, up or down
+
+3) at both positions in the maze there is a space ' '. 
+
+The task for this week is, given a maze and two positions, determine if they are adjacent.
+
+Specifics
+In more detail a maze will be given as a vector of strings, like this:
+
+std::vector<std::string> maze {
+    "#####",
+    "#   #",
+    "#   #",
+    "#####"};
+We promise that every string in the vector has the same length, and the only characters in the strings are ' ' and '#'.  It does not have to be the case that there is a border of walls around the maze as in this example.
+
+To specify positions in the maze, we provide a simple struct called Point:
+
+// simple struct to hold a maze position
+struct Point {
+  int row {};
+  int col {};
+};
+We provide functions to add two Points together and tell if two Points are equal or not.
+
+Your task is to write a function with the signature
+
+bool isEdge(const std::vector<std::string>&, const Point&, const Point&);
+Given a maze as above, and two points x and y, this should return true if x and y are adjacent in the graph and false otherwise.
+
+Examples
+  std::vector<std::string> maze {
+    "## ##",
+    "#   #",
+    "#    ",
+    "## ##"};
+  EXPECT_FALSE(isEdge(maze, {0, 2}, {-1, 2}));    // points must be valid positions in maze
+  EXPECT_FALSE(isEdge(maze, {0, 2}, {0, 2}));     // no self loops
+  EXPECT_FALSE(isEdge(maze, {0, 2}, {1, 1}));     // no diagonal moves
+  EXPECT_FALSE(isEdge(maze, {1, 3}, {0, 3}));     // no edge with a wall
+  EXPECT_FALSE(isEdge(maze, {1, 3}, {2, 4}));     // not reachable in a single step
+  
+  EXPECT_TRUE(isEdge(maze, {0, 2}, {1, 2}));      // valid edge
+  EXPECT_TRUE(isEdge(maze, {1, 1}, {1, 2}));      // valid edge
+  EXPECT_TRUE(isEdge(maze, {1, 2}, {1, 1}));      // the graph is undirected
+
+Complexity
+Your solution should work in constant time.
+
+Marking
+Implement your solution in is_edge.cpp. We include 10 test cases in the file main.cpp and you can modify main.cpp as you like for your own testing and debugging. When you press "mark" we will run your code against the 10 given test cases and 10 additional hidden test cases. You must press "mark" in order to for this exercise to be graded. Your grade out of 100% is the number of test cases passed * 5.
