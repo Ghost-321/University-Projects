@@ -1,0 +1,37 @@
+Matching Playdough
+We are given 
+𝑛
+n balls of playdough of various weights.  We are going to match up the balls into pairs of equal weights by the following process: 
+
+Take the two heaviest remaining balls.  If they are the same weight, then they are paired up and we put them aside.  Otherwise, we remove material from the heavier ball until it is the same weight as the lighter ball.  Then we put the matched balls aside and form a ball out of the excess material and add it to our queue of waiting balls.  
+
+Put another way, let 
+𝑥
+≥
+𝑦
+x≥y be the weights of the two heaviest balls remaining to be processed.  If 
+𝑥
+=
+𝑦
+x=y then we remove these balls from the queue of balls to be processed.  Otherwise, we remove these two balls from the queue and add a new ball to the queue of weight 
+𝑥
+−
+𝑦
+x−y.
+
+This process will end when there is just one or zero balls in the queue.  You are to write a function that returns the weight of the last ball in the queue if one ball is left at the end, and otherwise returns 0 if no balls are left.  All the weights will be given by positive int s.  The initial weights of the balls are given in a vector, so your function has the signature:
+
+int lastBallWeight(const std::vector<int>& weights);
+When the size of weights is 
+𝑛
+n, the running time of your function should be 
+𝑂
+(
+𝑛
+log
+⁡
+𝑛
+)
+O(nlogn).  
+
+As usual, implement your solution in playdough.cpp.  We include 10 test cases in the file main.cpp and you can modify main.cpp as you like for your own testing and debugging.  When you press "mark" we will run your code against the 10 given test cases and 10 additional hidden test cases.  You must press "mark" in order to for this exercise to be graded.  Your grade out of 100% is the number of test cases passed * 5.
