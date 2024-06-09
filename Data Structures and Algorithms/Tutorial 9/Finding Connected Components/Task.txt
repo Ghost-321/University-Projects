@@ -1,0 +1,4 @@
+Finding connected components
+In this challenge we will restrict ourselves to undirected graphs. You will augment your Graph class from the first challenge with a member function void connectedComponents()to output the connected components of the graph. As we will only consider undirected graphs this time, your Graph class no longer needs to support directed graphs. 
+
+We do not specify the exact form in which the connected components are displayed, but the function should print out the names of the vertices in each connected component. You may need to define additional member functions in order to implement connectedComponents.  As discussed in lecture, you can use either depth-first search or breadth-first search to find connected components.  There is again no "mark" button for this challenge; we put in the code comments what the connected components should be for the given examples.
