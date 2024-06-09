@@ -1,0 +1,45 @@
+Shortest Path Through a Maze
+For the coding challenge this week we return to our text-based mazes that look like this:
+
+  std::vector<std::string> maze = {
+    "   #       ",
+    "## # ##### ",
+    " # #   #   ",
+    " # ### # ##",
+    "   #   #   ",
+    " ### ##### ",
+    "   #     # ",
+    "## ####### ",
+    " #         ",
+    " ######### ",
+    "           "};
+
+Spaces represent corridors and '#' walls.  From a given cell you can move left, right, up or down, provided the cell you move to is valid (not out of bounds) and has a space.   This time you will be given a starting point and an ending point (both of which will be "spaces" in the maze), and the task is to find a shortest path from the starting point to the ending point.
+
+The output of your program will again be a std::vector<std::string> .  This output will visually represent the shortest path you found.  It should be the original maze with a shortest path from the start to the end marked by periods.  For the above maze, if the starting point is {0, 4} and the ending point is {2, 2}, then the following is a valid output:
+
+  std::vector<std::string> solution = {
+    "   #.......",
+    "## # #####.",
+    " #.#   #...",
+    " #.### #.##",
+    "...#   #...",
+    ".### #####.",
+    "...#     #.",
+    "##.#######.",
+    " #.........",
+    " ######### ",
+    "           "};
+
+Implementation
+Please implement your solution in the maze_solver.cpp file.  As previously when working with this maze, we provide a Point class (in the file point.hpp) that holds a row and column number.  We also provide functionality to add and compare points.
+
+Grading:
+On a maze of size 
+𝑁
+N, your solution should work in time 
+𝑂
+(
+𝑁
+)
+O(N).  We provide 10 test cases for you to get started with in main.cpp.  When you press mark, your solution will be tested against these 10 test cases plus an additional 10 more hidden test cases.  Your mark out of 100% will be 5% times the number of test cases you pass.
