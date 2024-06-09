@@ -1,0 +1,27 @@
+[] 33130, title Mathematics 1
+[33130] 33230, title Mathematics 2
+[] 31265, title Communication for IT Professionals
+[] 37181, title Discrete Mathematics
+[] 31266, title Introduction to Information Systems
+[48024] 31251, title Data Structures and Algorithms
+[41039] 48024, title Programming 2
+[37181, 48024] 41080, title Theory of Computing Science
+[] 31268, title Web Systems
+[31269, 31266, 41078] 31272, title Project Management and the Professional
+[31266] 31269, title Business Requirements Modelling
+[41039] 31271, title Database Fundamentals
+[] 41078, title Computing Science Studio 1
+[41078] 41079, title Computing Science Studio 2
+[] 41092, title Network Fundamentals
+[] 41039, title Programming 1
+[41039] 41025, title Introduction to Software Development
+[] 31260, title Fundamentals of Interaction Design
+[41025] 41026, title Advanced Software Development
+[48024] 48433, title Software Architecture
+[31251] 41052, title Advanced Algorithms
+[31260] 31777, title Advanced Interaction Design
+[48024] 31242, title Advanced Internet Programming
+[41039] 41889, title Application Development in the iOS Environment
+[] 32144, title Technology Research Preparation
+[32144] 32931, title Technology Research Methods
+[32931] 31482, title Honours Project
