@@ -1,0 +1,21 @@
+
+Need to implement the following functions:
+
+    Basic Operation
+push
+pop
+top
+empty
+size
+
+    New Operation
+changeKey
+erase
+contains
+
+    Helper Functions -> I went through a lot of stuff trying to figure these out it was mostly youtube and a mix of like
+                        stackoverflow and random documents. The ones that we're most helpful were a mix and its hard
+                        to pin-point the actual useful ones to cite in the Reference.txt
+swim
+sink
+
