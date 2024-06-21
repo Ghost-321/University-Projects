@@ -1,0 +1,50 @@
+public class StretchWith2Vowels {
+    public static void main(String[] args) {
+        String input;
+        while (!(input = readString("Sentence: ")).equals("*")) {
+            System.out.println("Matching words = " + WordsMatch(input));
+        } 
+        System.out.println("Done");
+    }
+    public static String readString(String prompt) {
+        System.out.print(prompt);
+        return In.nextLine();
+    }
+    public static int WordsMatch(String sentence) {
+        int count = 0;
+        for (String word : sentence.split ( " ", 0)){
+        if (Pattern(word)) {
+            count++;
+        }
+    }
+    return count;
+    }
+    public static boolean Pattern(String word) {
+        boolean detected = true;
+        int Vowel_count = 0;
+        String vowels = "aeiou";
+        for (int i = 0; i < word.length(); i++) {
+            if (!detected) {
+                if (Character.toLowerCase(word.charAt(i)) == 'z') {
+                    detected = true;
+                }
+            }
+            else {
+                if (Vowel_count == 2 && Character.toLowerCase(word.charAt(i)) == 'z') {
+                    return true;
+                }
+                if (vowels.indexOf(Character.toLowerCase(word.charAt(i))) != -1) {
+                    Vowel_count++;
+                }
+                if (Vowel_count > 2) {
+                    detected = false;
+                    Vowel_count = 0;
+                }
+                if (Character.toLowerCase(word.charAt(i)) == 'z') {
+                    Vowel_count = 0;
+                } 
+            }
+        }
+        return detected && Vowel_count == 2;
+    }
+}
