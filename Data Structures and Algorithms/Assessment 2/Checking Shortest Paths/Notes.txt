@@ -1,0 +1,55 @@
+To the marker: This is just my own personal break-down for the task, I just have it here as its
+                easier to access and I have a million documents on my desktop which I cannot be bothered
+                sorting through at this current time. If you have suggestions of better ways to breakdown
+                the task, I'm perfectly happy for feedback     
+     
+            Task
+Verify correctness of a single source shortest path algorithm
+
+            Keywords -> Use to gain deeper background research for when stuck
+Single source
+shortest path algorithm
+correctness
+
+            Core information
+1 - Ensure the Graph class can handle edge weights of "Int", "MyInteger" and "Double"
+
+Constructor - starts the empty graph with 'N' Vertices
+
+File Constructor - starts the graph from a edge list File
+
+addEdge - adds a directed edge with a specific weight
+
+removeEdge - removes the edge 
+
+isEdge - verify an edge exists
+
+getEdgeWeight - gets the weight of specified edge 
+
+size - returns the NUMBER of vertices in the graph 
+
+iterators - provides iterators for the adjanency list
+
+            Example / key information for research
+Path from vertex 0 to vertex 5 of length 20   -> Shortest path tree
+
+No path if length is < 20   -> based on relaxing edges 
+
+
+            Testcases
+5 test cases for isSubgraph
+
+20 test cases for isTreePlusIsolated
+
+20 test cases for pathLengthsFromRoot
+
+20 test cases for allEdgesRelaxed
+
+Note: Potentially add additional to account for bugs and edge-cases
+
+            Sources as they appear
+https://www.youtube.com/watch?v=zF9Aeu1u1xQ -> Covers path finding algorithms
+https://www.youtube.com/watch?v=pVfj6mxhdMw -> Dijkstra's algorithm (Helped me understand what I'm doing)
+https://www.geeksforgeeks.org/shortest-path-algorithms-a-complete-guide/ -> Covers essentially all types of paths 
+https://en.wikipedia.org/wiki/Shortest-path_tree#:~:text=In%20mathematics%20and%20computer%20science,v%20to%20u%20in%20G. -> Light additional context on Shortest path tree
+
