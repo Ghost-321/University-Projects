@@ -1,0 +1,42 @@
+
+                    Data Structures 
+priorityQueue: Stores indices in a heap-ordered structure.
+priorities: Stores the priority associated with each index.
+indexToPosition: Maps each index to its position in the priorityQueue.
+size_: Keeps track of the current number of elements in the queue
+
+                    Constructor
+Constructor(int N): Initializes the data structures for N elements
+
+                    Basic Operations
+void push(const T& priority, int index): Add an element with a given priority and index.
+void pop(): Remove the element with the minimum priority.
+std::pair<T priority, int index> top() const: Return the element with the minimum priority and its index.
+bool empty() const: Check if the priority queue is empty.
+int size() const: Return the number of elements in the queue.
+
+                    New Operations
+void changeKey(const T& priority, int index): Change the priority of a given index.
+void erase(int index): Remove an element by its index.
+bool contains(int index) const: Check if an element with a given index exists.
+
+                    Additional Member Functions
+Sink and Swim to assist with Heap order
+
+                    Testing
+Potential additional testing ~ Refer to discussion boards
+
+                    Links Used at some point 
+https://en.wikipedia.org/wiki/Priority_queue -> Provided extra info
+https://en.wikipedia.org/wiki/Binary_heap -> Provided extra info
+
+https://en.cppreference.com/w/cpp/container/vector -> Vector Library
+https://www.geeksforgeeks.org/binary-heap/ -> Binary Heap Example
+
+https://github.com/search?q=priority+queue+heap+language%3AC%2B%2B&type=repositories -> Similar Projects
+
+I did further look into leetcode but unsure how to really link as I do not recall any specific questions but
+observed a wide range of different implementations.
+
+I did further insert another 6 test-cases. These were to explore potential edge-cases.
+If you figure one out where it fails could you please tell me so I can see the position where I didn't consider!
