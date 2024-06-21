@@ -1,0 +1,89 @@
+Coding Question
+Congratulations on reaching the final task in Data Structures and Algorithms!  While I still have your attention, I would like to get your help planning my holiday over the winter break.
+
+I am planning on touring Australia in an electric car. I want to plan the route so that the distance between charging stations along the route is less than the distance the car can go on a single charge.  Let us imagine a graph where the vertices are charging stations, and the weight of an edge between two charging stations is the road distance between them.  A trip from Sydney to Brisbane, for example, could make stops for recharging at Newcastle, Taree, Coffs Harbour, Byron Bay, Gold Coast, and finally Brisbane.  In this picture we show these stops together with the distance in kilometres between them.
+
+
+
+
+With this path I am interested in the longest distance I have to go without recharging.  In this case the longest leg is from Coff's Harbour to Byron Bay, which is 238.2 km.  
+
+With my winter holiday in mind, let us define a new notion of the length of a path, the longest-leg length.  The longest-leg length of a path is the largest weight of an edge in the path.  The longest-leg length in the charging station graph is exactly what we need to look at to determine if we can drive a particular route.  Here is another example
+
+
+
+The normal length of this path (sum of the edge weights) is 11,  but the longest-leg length of this path is 5, because the largest edge weight of an edge on the path is 5.  Note that longest leg length makes sense with negative edge weights too.
+
+When considering two different routes from Sydney to Brisbane, I would prefer the route with shorter longest-leg length.  That way, I am less worried about running out of battery on the trip.  With this in mind, we can define the longest leg distance between two vertices as the minimum over all paths between the vertices of the longest-leg length of the paths.
+
+
+
+In this example, there are two paths from vertex 0 to vertex 3.  The path from 0 to 1 to 2 to 3 has longest-leg length 2 while the path just taking the edge from 0 to 3 has longest leg length 3.  The longest-leg distance between vertices 0 and 3 is the minimum of these and so is 2.
+
+In this coding challenge, you given a graph and a source vertex 
+𝑣
+v and the task is output a vector with the longest-leg distances from 
+𝑣
+v to every other vertex in the graph.
+
+Implementation Details:
+Your task is to write a function with the signature:
+
+std::vector<int> longestLegDistance(const Graph<int>& G, int source);
+When 
+𝐺
+G has 
+𝑛
+n vertices, the output vector (call it distTo ) is a vector of size 
+𝑛
+n where distTo.at(i) is the longest-leg distance from source to vertex i.  For this challenge we will only use graphs where the type of the edge weight is int.  
+
+Important Technical Note: The longest leg distance from the source to itself is the longest-leg length of the empty path.  We consider this to be "minus infinity" and in your solution you should use std::numeric_limits<int>::min() for this.  If a vertex is not reachable from the source then its longest leg distance from the source is "infinity" and you should use  std::numeric_limits<int>::max() for this.
+
+You should implement the longestLegDistance function in the graph.hpp file on the scaffold.  The Graph class in graph.hpp is the same as that used in Part 2 and 3 of Programming Assignment 2.  Do not modify the member functions in the Graph class, as these are used by the marker.
+
+You are allowed to use any code from tutorials or from your programming assignments for this problem.  When the graph has 
+𝑛
+n vertices and 
+𝑚
+m edges, your algorithm should run in time 
+𝑂
+(
+(
+𝑛
++
+𝑚
+)
+log
+⁡
+𝑛
+)
+O((n+m)logn).
+
+Hint
+The key to the correctness of Dijkstra's shortest path algorithm is that, when edge weights are non-negative, adding edges to a path cannot make the length of the path decrease.  
+
+The same thing is true of longest leg distance.
+
+
+The edge from 0 to 1 has weight 2.  Any path that includes this edge must have longest leg length at least 2.  
+
+This key fact means that we can use Dijkstra's algorithm to solve the single source longest-leg distance problem as well.  To modify Dijkstra's algorithm to work for longest-leg distance, we just need to change the meaning of relaxing an edge.  Now when relaxing an edge 
+(
+𝑢
+,
+𝑣
+)
+(u,v) we check if the path to 
+𝑣
+v which takes the shortest longest-leg path we know of from the source to 
+𝑢
+u and then takes the edge 
+(
+𝑢
+,
+𝑣
+)
+(u,v) has smaller longest-leg length than the best path we previously knew of to 
+𝑣
+v.  Likewise, it is these best found longest-leg path lengths to vertices that we want to store in our priority queue.  The rest of Dijkstra's algorithm stays the same. 
